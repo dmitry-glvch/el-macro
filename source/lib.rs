@@ -1,6 +1,7 @@
 /// Binds expression `e` to a new variable `n` if it ['has a value' / 'is ok'](IntoResult).
 /// Otherwise, executes the optional error handler `h` and evaluates the `f` expression.
 ///
+///
 /// Provides the ability to write concise code to get the value or get goin' in a context where
 /// [ErrorPropagationExpression (`?`)](https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.try)
 /// is not sufficient, such as when controlling execution flow with `break` or `continue`,
@@ -16,12 +17,20 @@
 /// The `f` expression is used to control the execution flow in a case when
 /// the `e`expression contains an error, making binding impossible.
 ///
+///
+/// # Syntax
+///
+/// ```text
+/// bind!([mut] <variable-name> = <value-expression>, or [<error-handler>,] <flow-control-expression>);
+/// ```
+///
+///
 /// # Examples
 ///
 /// Basic usage:
 /// ```
-/// use el_macro::bind;
-///
+/// # use el_macro::bind;
+/// #
 /// // binds `x` to the value 42, does not return
 /// bind!(x = Some(42), or return);
 /// assert_eq!(x, 42);
@@ -41,8 +50,8 @@
 ///
 /// Handling error values:
 /// ```
-/// use el_macro::bind;
-///
+/// # use el_macro::bind;
+/// #
 /// let okish = Some(42).ok_or("error");
 /// let errorish = None::<i32>.ok_or("error");
 ///
@@ -70,8 +79,8 @@
 ///
 /// Using with a custom type:
 /// ```
-/// use el_macro::{bind, IntoResult};
-///
+/// # use el_macro::{bind, IntoResult};
+/// #
 /// struct NegativeIsError(i32);
 ///
 /// // returns some external descriptor on success,
@@ -159,11 +168,25 @@ macro_rules! if_matches {
 }
 
 
+/// Tells the `bind` macro whether the given expression yielded a bindable value or an error.
+///
+/// Enables the `bind` macro to determine by representing the value yielded
+/// by the given expression as `Result` whether to create a variable and bind it to the value,
+/// or to call the optional error handler and evaluate the execution flow control block.
+///
+/// Implemented by default for `Result` and `Option`, with `()` as `Error` for the latter.
+///
+/// For the usage example, refer to the `bind` macro documentation, which includes
+/// an example of using it with user-defined types.
 pub trait IntoResult {
 
+    /// Type of the value that the `bind` macro binds the created variable to.
     type Value;
+    /// Type of the error that the `bind` macro passes as the only argument
+    /// to the optional error handler.
     type Error;
 
+    /// Represents the yielded value as `Result`
     fn into_result(self) -> Result<Self::Value, Self::Error>;
 
 }
