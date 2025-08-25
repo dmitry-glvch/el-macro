@@ -3,6 +3,13 @@
 This project adheres to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.2.1] - 2025-08-25
+
+### Added
+
+- README.md file.
+
+
 ## [0.2.0] - 2025-08-25
 
 ### Added
@@ -40,6 +47,7 @@ Initial version.
 - `if_matches` macro.
 
 
+[0.2.1]: https://github.com/dmitry-glvch/el-macro/tree/v0.2.1
 [0.2.0]: https://github.com/dmitry-glvch/el-macro/tree/v0.2.0
 [0.1.1]: https://github.com/dmitry-glvch/el-macro/tree/v0.1.1
 [0.1.0]: https://github.com/dmitry-glvch/el-macro/tree/v0.1.0
