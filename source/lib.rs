@@ -1,3 +1,8 @@
+#[cfg(test)]
+#[path = "../test/mod.rs"]
+mod test;
+
+
 /// Binds expression `e` to a new variable `n` if it ['has a value' / 'is ok'](IntoResult).
 /// Otherwise, executes the optional error handler `h` and evaluates the `f` expression.
 ///
