@@ -8,6 +8,7 @@ rust-version = '1.75.0'
 
 description = 'a dumb macro collection for anti-idiomatic rust programming'
 authors = ['dimas']
+repository = "https://github.com/dmitry-glvch/el-macro"
 license = 'MIT'
 
 
