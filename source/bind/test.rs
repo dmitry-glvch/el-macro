@@ -1,13 +1,13 @@
-use super::*;
+use crate::bind;
 
 
 #[test]
 fn mut_with_handler() {
-    
+
     bind!(mut x = Some(42), or |_| { }, unreachable!());
     x += 3;
     assert_eq!(x, 45);
-    
+
     #[allow(unused_variables)]
     #[allow(unused_mut)]
     {
@@ -18,5 +18,5 @@ fn mut_with_handler() {
         });
         unreachable!()
     }
-    
+
 }
