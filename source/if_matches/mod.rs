@@ -1,13 +1,13 @@
-/// Maps pattern's bound variables to `Some` if the provided expression matches the pattern.
+/// Maps pattern's bound variables to [`Some`] if the provided expression matches the pattern.
 ///
 /// Evaluates the expression `e` against the pattern `p` and maps
-/// the bound variables of `p` into `Some` if the expression matches
+/// the bound variables of `p` into [`Some`] if the expression matches
 /// and the optional match guard expression `c` evaluates to `true`.
 ///
 /// Mapping is performed by the closure, the body of which is provided as the `m` argument.
 /// Inside `m`, the bound variables of `p` as well as variables from the outer scope are available.
 ///
-/// Yields `None` if the expression does not match the pattern.
+/// Yields [`None`] if the expression does not match the pattern.
 ///
 ///
 /// # Syntax
