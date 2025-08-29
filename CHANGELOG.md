@@ -3,6 +3,16 @@
 This project adheres to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 
+## [unreleased]
+
+### Changed
+
+- Split the crate into modules. The `IntoResult` trait
+  used for the `bind` macro is now in the `bind` module.
+  So now you have to implement `el_macro::bind::IntoResult`
+  for your own types instead of just `el_macro::IntoResult`.
+
+
 ## [0.2.2] - 2025-08-29
 
 ### Fixed
