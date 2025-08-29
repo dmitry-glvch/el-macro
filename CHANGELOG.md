@@ -3,6 +3,14 @@
 This project adheres to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 
+## [unreleased]
+
+### Fixed
+
+- Restored the ability to create mutable variable bindings
+  with error handlers inlined using the `bind` macro.
+
+
 ## [0.2.1] - 2025-08-25
 
 ### Added

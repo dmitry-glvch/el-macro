@@ -137,17 +137,31 @@
 #[macro_export]
 macro_rules! bind {
 
-    ($($n: ident)+ = $e: expr, or $f: expr) => {
-        let Ok($($n)+) = $crate::IntoResult::into_result($e) else { $f };
+    ($n: ident = $e: expr, or $f: expr) => {
+        let Ok($n) = $crate::IntoResult::into_result($e) else { $f };
     };
 
-    ($($n: ident)+ = $e: expr, or $h: expr, $f: expr) => {
-        let $($n)+ = match $crate::IntoResult::into_result($e) {
-            Ok($($n)+) => { $($n)+ },
+    (mut $n: ident = $e: expr, or $f: expr) => {
+        let mut $n = {
+            $crate::bind!($n = $e, or $f);
+            $n
+        };
+    };
+
+    ($n: ident = $e: expr, or $h: expr, $f: expr) => {
+        let $n = match $crate::IntoResult::into_result($e) {
+            Ok($n) => { $n },
             Err(err) => {
                 $h(err);
                 $f
             },
+        };
+    };
+
+    (mut $n: ident = $e: expr, or $h: expr, $f: expr) => {
+        let mut $n = {
+            $crate::bind!($n = $e, or $h, $f);
+            $n
         };
     };
 
