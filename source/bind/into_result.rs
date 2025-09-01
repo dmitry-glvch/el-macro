@@ -44,3 +44,15 @@ impl<T, E> IntoResult for Result<T, E> {
     }
 
 }
+
+
+impl<'a, T> IntoResult for &'a std::sync::Mutex<T> {
+
+    type Value = std::sync::MutexGuard<'a, T>;
+    type Error = std::sync::PoisonError<Self::Value>;
+
+    fn into_result(self) -> Result<Self::Value, Self::Error> {
+        self.lock()
+    }
+
+}

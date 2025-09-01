@@ -5,6 +5,10 @@ This project adheres to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## [unreleased]
 
+### Added
+
+- `IntoResult` implementation for `Mutex`.
+
 ### Changed
 
 - Split the crate into modules. The `IntoResult` trait
