@@ -157,6 +157,14 @@ macro_rules! bind {
         };
     };
 
+    ($n: ident, or $f: expr) => {
+        $crate::bind!($n = $n, or $f);
+    };
+
+    (mut $n: ident, or $f: expr) => {
+        $crate::bind!(mut $n = $n, or $f);
+    };
+
     ($n: ident = $e: expr, or $h: expr, $f: expr) => {
         let $n = match $crate::bind::IntoResult::into_result($e) {
             Ok($n) => { $n },
@@ -172,6 +180,14 @@ macro_rules! bind {
             $crate::bind!($n = $e, or $h, $f);
             $n
         };
+    };
+
+    ($n: ident, or $h: expr, $f: expr) => {
+        $crate::bind!($n = $n, or $h, $f);
+    };
+
+    (mut $n: ident, or $h: expr, $f: expr) => {
+        $crate::bind!(mut $n = $n, or $h, $f);
     };
 
 }

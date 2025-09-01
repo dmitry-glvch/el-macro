@@ -7,6 +7,8 @@ This project adheres to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Shorthand syntax for the `bind` macro that allows `bind!(x, …)`
+  as an equivalent to `bind!(x = x, …)`.
 - `IntoResult` implementation for `Mutex`.
 
 ### Changed
