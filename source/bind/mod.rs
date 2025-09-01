@@ -147,7 +147,13 @@ pub use into_result::IntoResult;
 macro_rules! bind {
 
     ($n: ident = $e: expr, or $f: expr) => {
-        let Ok($n) = $crate::bind::IntoResult::into_result($e) else { $f };
+        let $n = {
+            use $crate::bind::IntoResult;
+            match $e.into_result() {
+                Ok(val) => val,
+                Err(_) => $f,
+            }
+        };
     };
 
     (mut $n: ident = $e: expr, or $f: expr) => {
@@ -166,12 +172,15 @@ macro_rules! bind {
     };
 
     ($n: ident = $e: expr, or $h: expr, $f: expr) => {
-        let $n = match $crate::bind::IntoResult::into_result($e) {
-            Ok($n) => { $n },
-            Err(err) => {
-                $h(err);
-                $f
-            },
+        let $n = {
+            use $crate::bind::IntoResult;
+            match $e.into_result() {
+                Ok($n) => { $n },
+                Err(err) => {
+                    $h(err);
+                    $f
+                },
+            }
         };
     };
 

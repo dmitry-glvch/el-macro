@@ -10,6 +10,7 @@ This project adheres to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 - Shorthand syntax for the `bind` macro that allows `bind!(x, …)`
   as an equivalent to `bind!(x = x, …)`.
 - `IntoResult` implementation for `Mutex`.
+- [autoref-deref] support for the `bind` macro.
 
 ### Changed
 
@@ -17,6 +18,12 @@ This project adheres to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
   used for the `bind` macro is now in the `bind` module.
   So now you have to implement `el_macro::bind::IntoResult`
   for your own types instead of just `el_macro::IntoResult`.
+- The `bind` macro expansion has been updated from a fully-qualified
+  `IntoResult::into_result` call to a MethodCallExpression (`.into_result()`)
+  which may resolve to a different method call rather than
+  `IntoResult::into_result`.
+
+[autoref-deref]: https://doc.rust-lang.org/reference/expressions/method-call-expr.html#r-expr.method.autoref-deref
 
 
 ## [0.2.2] - 2025-08-29

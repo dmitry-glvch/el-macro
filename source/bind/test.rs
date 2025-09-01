@@ -20,3 +20,20 @@ fn mut_with_handler() {
     }
 
 }
+
+
+#[test]
+fn deref_and_shorthand() {
+
+    let x = Box::new(Some(42));
+    bind!(x, or return);
+    assert_eq!(x, 42);
+
+    use std::sync::{Arc, Mutex};
+
+    let x = Arc::new(Mutex::new(45));
+    bind!(mut x, or return);
+    *x -= 3;
+    assert_eq!(*x, 42);
+
+}
