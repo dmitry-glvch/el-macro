@@ -1,21 +1,24 @@
-/// Maps pattern's bound variables to `Some` if the provided expression matches the pattern.
+//! The [`crate::if_matches!`] macro
+
+
+/// Maps pattern's bound variables to [`Some`] if the provided expression matches the pattern.
 ///
-/// Evaluates the expression `e` against the pattern `p` and maps
-/// the bound variables of `p` into `Some` if the expression matches
-/// and the optional match guard expression `c` evaluates to `true`.
-///
-/// Mapping is performed by the closure, the body of which is provided as the `m` argument.
-/// Inside `m`, the bound variables of `p` as well as variables from the outer scope are available.
-///
-/// Yields `None` if the expression does not match the pattern.
-///
+/// Evaluates the provided expression against the pattern and maps pattern's bound variables
+/// into [`Some`] if the expression matches and the optional match guard expression evaluates
+/// to `true`. Mapping is performed by the closure, the body of which is provided as the argument.
+/// Returns [`None`] if the expression does not match the pattern.
 ///
 /// # Syntax
 ///
 /// ```text
-/// if_matches!(<expression>, <pattern> [if <match-guard>] => <mapping-closure-body>)
+/// if_matches!(<expression>, <pattern> [if <match-guard>] => <mapping-body>)
 /// ```
 ///
+/// - `<expression>` — expression to be evaluated against `<pattern>`.
+/// - `<pattern>` — pattern that is matched against.
+/// - `<match-guard>` — optional match guard. that further restricts the match.
+/// - `<mapping-body>` — body of the closure that defined how to map `<pattern>`'s
+///   bound variables into a [`Some`] value.
 ///
 /// # Examples
 ///

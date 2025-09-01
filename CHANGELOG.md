@@ -3,7 +3,7 @@
 This project adheres to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 
-## [unreleased]
+## [0.3.0] - 2025-09-02
 
 ### Added
 
@@ -54,12 +54,11 @@ This project adheres to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- `if_matches` macro now takes a mapping closure body instead of the entire closure. 
+- `if_matches` macro now takes a mapping closure body
+  instead of the entire closure. 
 
 
 ## [0.1.1] - 2025-08-22
-
-Documented the `bind` macro.
 
 ### Added
 
@@ -67,8 +66,6 @@ Documented the `bind` macro.
 
 
 ## [0.1.0] - 2025-08-21
-
-Initial version.
 
 ### Added
 
@@ -78,6 +75,7 @@ Initial version.
 - `if_matches` macro.
 
 
+[0.3.0]: https://github.com/dmitry-glvch/el-macro/tree/v0.3.0
 [0.2.2]: https://github.com/dmitry-glvch/el-macro/tree/v0.2.2
 [0.2.1]: https://github.com/dmitry-glvch/el-macro/tree/v0.2.1
 [0.2.0]: https://github.com/dmitry-glvch/el-macro/tree/v0.2.0

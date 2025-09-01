@@ -20,6 +20,11 @@ bind!(mut x = Some(42), or return);
 x += 3;
 assert_eq!(x, 45);
 
+let x = Some(42);
+// shorthand for bind!(x = x, or return)
+bind!(x, or return);
+assert_eq!(x, 42);
+
 let handle_error = |err: &str| eprintln!("{err}!");
 // prints 'error!' and returns
 bind!(x = None::<i32>.ok_or("error"), or handle_error, return);

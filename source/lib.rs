@@ -1,3 +1,2 @@
 pub mod bind;
-pub mod if_matches;
-
+mod if_matches;

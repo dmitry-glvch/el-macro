@@ -1,3 +1,6 @@
+//! The [`crate::bind!`] macro and related [`crate::bind::IntoResult`] trait
+
+
 mod into_result;
 
 #[cfg(test)]
@@ -7,32 +10,32 @@ mod test;
 pub use into_result::IntoResult;
 
 
-/// Binds expression `e` to a new variable `n` if it ['has a value' / 'is ok'](IntoResult).
-/// Otherwise, executes the optional error handler `h` and evaluates the `f` expression.
-///
+/// Binds the unwrapped value.
 ///
 /// Provides the ability to write concise code to get the value or get goin' in a context where
 /// [ErrorPropagationExpression (`?`)](https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.try)
 /// is not sufficient, such as when controlling execution flow with `break` or `continue`,
 /// or not applicable, as in function that does not return [`Result`] or [`Option`].
 ///
-/// The new variable name `n` may contain `mut` keyword to create a mutable binding.
-///
-/// The error value is passed as the only argument to the `h` error handler
-/// if the latter is present. Determining whether the given expression `e` contains a valid
-/// value or and error (and what are they) is done through [`IntoResult`] trait,
-/// which is already implemented for [`Result`] and [`Option`].
-///
-/// The `f` expression is used to control the execution flow in a case when
-/// the `e`expression contains an error, making binding impossible.
-///
+/// [Tests](IntoResult) whether the value of the provided expression can be unwrapped.
+/// Creates a variable binding if the value can be unwrapped. Otherwise, executes
+/// the error handler and evaluates the execution flow control expression.
 ///
 /// # Syntax
 ///
 /// ```text
-/// bind!([mut] <variable-name> = <value-expression>, or [<error-handler>,] <flow-control-expression>);
+/// bind!([mut] <var-name> [= <value-expr>], or [<err-handler>,] <flow-ctl>);
 /// ```
 ///
+/// - `mut` — indicator keyword to make the binding mutable.
+/// - `<var-name>` — name of the newly created variable.
+/// - `<value-expr>` — expression whose value is [being tested](IntoResult) to contain
+///   an unwrappable value. If not specified, the existing value of the variable `<var-name>`
+///   will be used to create new variable with the same name.
+/// - `<err-handler>` — optional error handler that is called if there's no value to unwrap,
+///   with error object passed as the only argument.
+/// - `<flow-ctl>` — expression used to control the execution flow in a case
+///   when there's no value to unwrap.
 ///
 /// # Examples
 ///
@@ -86,6 +89,15 @@ pub use into_result::IntoResult;
 /// unreachable!();
 /// ```
 ///
+/// Omitting the `<value-expr>`:
+/// ```
+/// # use el_macro::bind;
+/// #
+/// let x = Some(42);
+/// bind!(x /* = x */, or return);
+/// assert_eq!(x, 42);
+/// ```
+///
 /// Using with a custom type:
 /// ```
 /// # use el_macro::{bind, bind::IntoResult};
@@ -136,11 +148,7 @@ pub use into_result::IntoResult;
 /// }
 ///
 /// fn get_error_desc(error_code: i32) -> String {
-///     if error_code >= 0 {
-///         "no_error".to_string()
-///     } else {
-///         "unknown error".to_string()
-///     }
+///     if error_code >= 0 { "no error" } else { "unknown error "}.into()
 /// }
 /// ```
 #[macro_export]
