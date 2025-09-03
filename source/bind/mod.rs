@@ -154,31 +154,6 @@ pub use into_result::IntoResult;
 #[macro_export]
 macro_rules! bind {
 
-    ($n: ident = $e: expr, or $f: expr) => {
-        let $n = {
-            use $crate::bind::IntoResult;
-            match $e.into_result() {
-                Ok(val) => val,
-                Err(_) => $f,
-            }
-        };
-    };
-
-    (mut $n: ident = $e: expr, or $f: expr) => {
-        let mut $n = {
-            $crate::bind!($n = $e, or $f);
-            $n
-        };
-    };
-
-    ($n: ident, or $f: expr) => {
-        $crate::bind!($n = $n, or $f);
-    };
-
-    (mut $n: ident, or $f: expr) => {
-        $crate::bind!(mut $n = $n, or $f);
-    };
-
     ($n: ident = $e: expr, or $h: expr, $f: expr) => {
         let $n = {
             use $crate::bind::IntoResult;
@@ -192,19 +167,23 @@ macro_rules! bind {
         };
     };
 
-    (mut $n: ident = $e: expr, or $h: expr, $f: expr) => {
-        let mut $n = {
-            $crate::bind!($n = $e, or $h, $f);
-            $n
-        };
-    };
-
     ($n: ident, or $h: expr, $f: expr) => {
         $crate::bind!($n = $n, or $h, $f);
     };
 
-    (mut $n: ident, or $h: expr, $f: expr) => {
-        $crate::bind!(mut $n = $n, or $h, $f);
+    ($n: ident $(= $e: expr)?, or $f: expr) => {
+        $crate::bind!($n $(= $e)?, or |_| { }, $f);
+    };
+    
+    (mut $n: ident $(= $e: expr)?, or $h: expr, $f: expr) => {
+        let mut $n = {
+            $crate::bind!($n $(= $e)?, or $h, $f);
+            $n
+        };
+    };
+    
+    (mut $n: ident $(= $e: expr)?, or $f: expr) => {
+        $crate::bind!(mut $n $(= $e)?, or |_| { }, $f);
     };
 
 }
