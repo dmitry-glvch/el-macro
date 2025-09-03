@@ -3,6 +3,14 @@
 This project adheres to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.3.1] - 2025-09-03
+
+### Added
+
+- A note in the `bind` macro documentation comments regarding the potential
+  for unexpected resolution of the `.into_result()` call in the macro expansion.  
+
+
 ## [0.3.0] - 2025-09-02
 
 ### Added
@@ -75,6 +83,7 @@ This project adheres to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 - `if_matches` macro.
 
 
+[0.3.1]: https://github.com/dmitry-glvch/el-macro/tree/v0.3.1
 [0.3.0]: https://github.com/dmitry-glvch/el-macro/tree/v0.3.0
 [0.2.2]: https://github.com/dmitry-glvch/el-macro/tree/v0.2.2
 [0.2.1]: https://github.com/dmitry-glvch/el-macro/tree/v0.2.1

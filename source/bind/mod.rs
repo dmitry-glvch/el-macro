@@ -1,4 +1,4 @@
-//! The [`crate::bind!`] macro and related [`crate::bind::IntoResult`] trait
+//! The [`crate::bind!`] macro and related [`IntoResult`] trait
 
 
 mod into_result;
@@ -10,7 +10,7 @@ mod test;
 pub use into_result::IntoResult;
 
 
-/// Binds the unwrapped value.
+/// Binds the unwrapped value
 ///
 /// Provides the ability to write concise code to get the value or get goin' in a context where
 /// [ErrorPropagationExpression (`?`)](https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.try)
@@ -20,6 +20,13 @@ pub use into_result::IntoResult;
 /// [Tests](IntoResult) whether the value of the provided expression can be unwrapped.
 /// Creates a variable binding if the value can be unwrapped. Otherwise, executes
 /// the error handler and evaluates the execution flow control expression.
+///
+/// _Note_: The `.into_result()` call on the provided expression [may resolve][candidates]
+/// to a different method call rather than [`IntoResult::into_result`]. This resolution can
+/// lead to unexpected results. A fully-qualified call is not used for disambiguation
+/// because it disables autoref-deref behavior. 
+/// 
+/// [candidates]: https://doc.rust-lang.org/reference/expressions/method-call-expr.html#r-expr.method.candidate-search
 ///
 /// # Syntax
 ///
